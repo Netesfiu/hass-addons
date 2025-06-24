@@ -18,6 +18,18 @@ This add-on provides a web service that dynamically converts Material Design Ico
 
 The service accepts HTTP GET requests with icon name and size parameters, fetches the corresponding SVG from the official MDI CDN, converts it to PNG, and serves it with the correct MIME type.
 
+### Key Features
+
+- Converts MDI SVG icons to PNG images on-the-fly
+- Configurable image size
+- Custom icon colors
+- Background shapes (circle, square, rounded-square)
+- Customizable background colors
+- Adjustable padding between icon and background
+- In-memory caching for improved performance
+- CORS support for cross-origin requests
+- Error handling with appropriate HTTP status codes
+
 ## Installation
 
 Follow these steps to add this repository to your Home Assistant instance:

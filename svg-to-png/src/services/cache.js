@@ -62,13 +62,17 @@ function clearCache() {
 }
 
 /**
- * Generate a cache key for an MDI icon
+ * Generate a cache key for an MDI icon with styling options
  * @param {string} iconName - Icon name without mdi: prefix
  * @param {number} size - Requested size
+ * @param {string} [iconColor] - Icon color
+ * @param {string} [bgColor] - Background color
+ * @param {string} [bgShape] - Background shape
+ * @param {number} [padding] - Padding percentage
  * @returns {string} - Cache key
  */
-function generateCacheKey(iconName, size) {
-  return `${iconName}_${size}`;
+function generateCacheKey(iconName, size, iconColor = '', bgColor = '', bgShape = '', padding = '') {
+  return `${iconName}_${size}_${iconColor}_${bgColor}_${bgShape}_${padding}`;
 }
 
 module.exports = {

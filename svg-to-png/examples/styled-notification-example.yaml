@@ -1,0 +1,177 @@
+# Example Home Assistant automations that use the SVG to PNG converter
+# with styling options for icons and backgrounds
+
+# Example 1: Basic weather notification with colored icon
+automation:
+- id: weather_alert_colored_icon
+  alias: "Weather Alert with Colored Icon"
+  description: "Send a notification with a colored weather icon"
+  trigger:
+  - platform: state
+    entity_id: weather.home
+  condition:
+  - condition: template
+    value_template: "{{ trigger.to_state.state != trigger.from_state.state }}"
+  action:
+  - service: notify.mobile_app_your_device
+    data:
+      title: "Weather Update"
+      message: "Weather changed to {{ states('weather.home') }}"
+      data:
+        image: "http://homeassistant.local:3000/mdi.png?icon=mdi:{{ states('weather.home') }}&size=96&iconColor=dodgerblue"
+
+# Example 2: Alert notification with background
+- id: alert_notification_with_background
+  alias: "Alert Notification with Background"
+  description: "Send an alert notification with a colored background"
+  trigger:
+  - platform: numeric_state
+    entity_id: sensor.temperature
+    above: 30
+  action:
+  - service: notify.mobile_app_your_device
+    data:
+      title: "Temperature Alert"
+      message: "Temperature is too high: {{ states('sensor.temperature') }}°C"
+      data:
+        image: "http://homeassistant.local:3000/mdi.png?icon=mdi:thermometer-alert&size=96&iconColor=white&bgColor=%23FF5722&bgShape=circle"
+
+# Example 3: Dynamic styling based on state value
+- id: dynamic_styled_notification
+  alias: "Dynamic Styled Notification"
+  description: "Send a notification with styling based on state value"
+  trigger:
+  - platform: state
+    entity_id: sensor.temperature
+  action:
+  - service: notify.mobile_app_your_device
+    data:
+      title: "Temperature Update"
+      message: "Current temperature: {{ states('sensor.temperature') }}°C"
+      data:
+        image: >-
+          {% set temp = states('sensor.temperature') | float %} {% if temp > 30 %}
+            {% set icon = 'thermometer-alert' %}
+            {% set icon_color = 'white' %}
+            {% set bg_color = '%23FF5722' %}  # Red-orange
+          {% elif temp > 25 %}
+            {% set icon = 'thermometer-high' %}
+            {% set icon_color = 'white' %}
+            {% set bg_color = '%23FF9800' %}  # Orange
+          {% elif temp > 15 %}
+            {% set icon = 'thermometer' %}
+            {% set icon_color = 'white' %}
+            {% set bg_color = '%234CAF50' %}  # Green
+          {% elif temp > 5 %}
+            {% set icon = 'thermometer-low' %}
+            {% set icon_color = 'white' %}
+            {% set bg_color = '%232196F3' %}  # Blue
+          {% else %}
+            {% set icon = 'snowflake' %}
+            {% set icon_color = 'white' %}
+            {% set bg_color = '%239C27B0' %}  # Purple
+          {% endif %} http://homeassistant.local:3000/mdi.png?icon=mdi:{{ icon }}&size=96&iconColor={{ icon_color }}&bgColor={{ bg_color }}&bgShape=circle
+
+# Example 4: Battery level indicator with appropriate colors
+- id: battery_level_notification
+  alias: "Battery Level Notification"
+  description: "Send a notification with battery level and appropriate colors"
+  trigger:
+  - platform: numeric_state
+    entity_id: sensor.phone_battery
+    below: 20
+  action:
+  - service: notify.mobile_app_your_device
+    data:
+      title: "Battery Low"
+      message: "Your phone battery is at {{ states('sensor.phone_battery') }}%"
+      data:
+        image: >-
+          {% set battery = states('sensor.phone_battery') | float %} {% if battery < 10 %}
+            {% set icon = 'battery-10' %}
+            {% set bg_color = '%23F44336' %}  # Red
+          {% elif battery < 20 %}
+            {% set icon = 'battery-20' %}
+            {% set bg_color = '%23FF9800' %}  # Orange
+          {% elif battery < 30 %}
+            {% set icon = 'battery-30' %}
+            {% set bg_color = '%23FFC107' %}  # Amber
+          {% else %}
+            {% set icon = 'battery-low' %}
+            {% set bg_color = '%23FFC107' %}  # Amber
+          {% endif %} http://homeassistant.local:3000/mdi.png?icon=mdi:{{ icon }}&size=96&iconColor=white&bgColor={{ bg_color }}&bgShape=rounded-square&padding=15
+
+# Example 5: Different background shapes
+- id: shape_examples
+  alias: "Shape Examples"
+  description: "Examples of different background shapes"
+  trigger:
+  - platform: homeassistant
+    event: start
+  action:
+  - service: persistent_notification.create
+    data:
+      title: "SVG to PNG Converter - Shape Examples"
+      message: >-
+        Circle: ![Circle](http://homeassistant.local:3000/mdi.png?icon=mdi:check-circle&size=48&iconColor=white&bgColor=%234CAF50&bgShape=circle)
+
+        Square: ![Square](http://homeassistant.local:3000/mdi.png?icon=mdi:square&size=48&iconColor=white&bgColor=%232196F3&bgShape=square)
+
+        Rounded Square: ![Rounded Square](http://homeassistant.local:3000/mdi.png?icon=mdi:star&size=48&iconColor=white&bgColor=%23FF9800&bgShape=rounded-square)
+
+        No Background: ![No Background](http://homeassistant.local:3000/mdi.png?icon=mdi:home&size=48&iconColor=%239C27B0)
+
+# Example 6: Helper script for creating styled notifications
+script:
+  send_styled_notification:
+    alias: "Send Styled Notification"
+    description: "Send a notification with a styled MDI icon"
+    fields:
+      title:
+        description: "Notification title"
+        example: "Weather Alert"
+      message:
+        description: "Notification message"
+        example: "It's going to rain!"
+      icon:
+        description: "MDI icon name (without mdi: prefix)"
+        example: "weather-pouring"
+      size:
+        description: "Icon size in pixels"
+        example: "96"
+        default: 96
+      icon_color:
+        description: "Icon color"
+        example: "white"
+        default: "black"
+      bg_color:
+        description: "Background color (hex, rgb, etc.)"
+        example: "#2196F3"
+      bg_shape:
+        description: "Background shape (none, circle, square, rounded-square)"
+        example: "circle"
+        default: "none"
+      padding:
+        description: "Padding percentage (0-50)"
+        example: "10"
+        default: 10
+    sequence:
+    - service: notify.mobile_app_your_device
+      data:
+        title: "{{ title }}"
+        message: "{{ message }}"
+        data:
+          image: >-
+            {% set bg_color_encoded = bg_color | urlencode if bg_color is defined else '' %} http://homeassistant.local:3000/mdi.png?icon=mdi:{{ icon }}&size={{ size }}&iconColor={{ icon_color }}&bgColor={{ bg_color_encoded }}&bgShape={{ bg_shape }}&padding={{ padding }}
+
+# Example usage of the helper script:
+# service: script.send_styled_notification
+# data:
+#   title: "Temperature Alert"
+#   message: "Temperature is above 30°C!"
+#   icon: "thermometer-alert"
+#   size: 96
+#   icon_color: "white"
+#   bg_color: "#F44336"
+#   bg_shape: "circle"
+#   padding: 15

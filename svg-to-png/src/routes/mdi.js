@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { extractIconName, fetchSvg } = require('../services/svgFetcher');
-const { convertSvgToPng } = require('../services/converter');
+const { convertSvgToPng, VALID_SHAPES } = require('../services/converter');
 const { generateCacheKey, hasInCache, getFromCache, setInCache } = require('../services/cache');
 const { ValidationError } = require('../middleware/errorHandler');
 
@@ -10,10 +10,14 @@ const DEFAULT_SIZE = 96;
 
 /**
  * GET /mdi.png
- * Convert MDI SVG icon to PNG
+ * Convert MDI SVG icon to PNG with styling options
  * Query parameters:
  *   - icon: MDI icon name (e.g., mdi:weather-sunny)
  *   - size: PNG size in pixels (optional, default: 96)
+ *   - iconColor: Color for the icon (optional, hex, rgb, etc.)
+ *   - bgColor: Background color (optional, hex, rgb, etc.)
+ *   - bgShape: Background shape (optional, one of: none, circle, square, rounded-square)
+ *   - padding: Padding around icon as percentage of size (optional, 0-50, default: 10)
  */
 router.get('/mdi.png', async (req, res, next) => {
   try {
@@ -33,8 +37,31 @@ router.get('/mdi.png', async (req, res, next) => {
       throw new ValidationError('Size must be between 1 and 1024 pixels');
     }
     
-    // Generate cache key
-    const cacheKey = generateCacheKey(iconName, pngSize);
+    // Extract styling options
+    const { iconColor, bgColor, bgShape, padding } = req.query;
+    
+    // Validate bgShape if provided
+    if (bgShape && !VALID_SHAPES.includes(bgShape)) {
+      throw new ValidationError(`Invalid background shape. Must be one of: ${VALID_SHAPES.join(', ')}`);
+    }
+    
+    // Validate padding if provided
+    if (padding !== undefined) {
+      const paddingValue = parseInt(padding, 10);
+      if (isNaN(paddingValue) || paddingValue < 0 || paddingValue > 50) {
+        throw new ValidationError('Padding must be between 0 and 50 percent');
+      }
+    }
+    
+    // Generate cache key including styling options
+    const cacheKey = generateCacheKey(
+      iconName, 
+      pngSize, 
+      iconColor, 
+      bgColor, 
+      bgShape, 
+      padding
+    );
     
     // Check if PNG is in cache
     if (hasInCache(cacheKey)) {
@@ -52,8 +79,14 @@ router.get('/mdi.png', async (req, res, next) => {
     // Fetch SVG from CDN
     const svgString = await fetchSvg(iconName);
     
-    // Convert SVG to PNG
-    const pngBuffer = await convertSvgToPng(svgString, pngSize);
+    // Convert SVG to PNG with styling options
+    const pngBuffer = await convertSvgToPng(svgString, {
+      size: pngSize,
+      iconColor,
+      bgColor,
+      bgShape,
+      padding
+    });
     
     // Store PNG in cache
     setInCache(cacheKey, pngBuffer);
