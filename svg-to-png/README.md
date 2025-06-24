@@ -52,7 +52,21 @@ Clears the in-memory cache.
 
 ## Installation in Home Assistant
 
-### Installation as a Local Add-on
+### Installation from Repository
+
+1. In Home Assistant, go to **Settings** → **Add-ons** → **Add-on Store**
+2. Click the menu (⋮) in the top-right corner
+3. Select **Repositories**
+4. Add the URL: `https://github.com/Netesfiu/hass-addons`
+5. Click **Add**
+6. Find the "SVG to PNG Converter" add-on in the add-on store
+7. Click **Install**
+8. Start the add-on
+9. The service will be available at `http://homeassistant.local:3000` or `http://[your-ha-ip]:3000`
+
+### Manual Installation
+
+If you prefer to install manually:
 
 1. Copy the entire `svg-to-png` folder to your Home Assistant's `addons` directory:
    - Typically located at `/addons` in your Home Assistant installation

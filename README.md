@@ -24,7 +24,7 @@ Follow these steps to add this repository to your Home Assistant instance:
 
 1. Navigate in your Home Assistant frontend to **Settings** -> **Add-ons** -> **Add-on Store**.
 2. Click the 3-dots menu at top right -> **Repositories**
-3. Add the URL `https://github.com/Netesfiu/svg-png-hass`
+3. Add the URL `https://github.com/Netesfiu/hass-addons`
 4. Click **Add**
 5. Find the "SVG to PNG Converter" add-on and click it.
 6. Click on the "INSTALL" button.
@@ -42,7 +42,7 @@ MIT License
 [armhf-shield]: https://img.shields.io/badge/armhf-yes-green.svg
 [armv7-shield]: https://img.shields.io/badge/armv7-yes-green.svg
 [i386-shield]: https://img.shields.io/badge/i386-yes-green.svg
-[license-shield]: https://img.shields.io/github/license/Netesfiu/svg-png-hass.svg
+[license-shield]: https://img.shields.io/github/license/Netesfiu/hass-addons.svg
 [project-stage-shield]: https://img.shields.io/badge/project%20stage-production%20ready-brightgreen.svg
-[releases-shield]: https://img.shields.io/github/release/Netesfiu/svg-png-hass.svg
-[releases]: https://github.com/Netesfiu/svg-png-hass/releases
+[releases-shield]: https://img.shields.io/github/release/Netesfiu/hass-addons.svg
+[releases]: https://github.com/Netesfiu/hass-addons/releases
