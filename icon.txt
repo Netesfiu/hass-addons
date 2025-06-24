@@ -1,0 +1,8 @@
+This is a placeholder for the icon.png file.
+
+Please replace this file with a 128x128 PNG image file named "icon.png" for your Home Assistant add-on.
+
+You can use any Material Design Icon as your add-on icon. For example, you could use the image-filter icon:
+https://cdn.jsdelivr.net/npm/@mdi/svg/svg/image-filter.svg
+
+Or create your own custom icon that represents the SVG to PNG conversion functionality.

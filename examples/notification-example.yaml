@@ -1,0 +1,68 @@
+# Example Home Assistant automations that use the SVG to PNG converter
+# to send notifications with weather icons
+
+# Example 1: Basic weather change notification with SVG to PNG converter
+automation:
+- id: weather_alert_notification
+  alias: "Weather Alert Notification"
+  description: "Send a notification with the current weather condition icon"
+  trigger:
+  - platform: state
+    entity_id: weather.home
+  condition:
+  - condition: template
+    value_template: "{{ trigger.to_state.state != trigger.from_state.state }}"
+  action:
+  - service: notify.mobile_app_your_device
+    data:
+      title: "Weather Update"
+      message: "Weather changed to {{ states('weather.home') }}"
+      data:
+        image: "http://homeassistant.local:3000/mdi.png?icon=mdi:{{ states('weather.home') }}&size=96"
+
+# Example 2: Specific weather condition notification
+- id: rain_alert_notification
+  alias: "Rain Alert Notification"
+  description: "Send a notification when it starts raining"
+  trigger:
+  - platform: state
+    entity_id: weather.home
+    to: "rainy"
+  action:
+  - service: notify.mobile_app_your_device
+    data:
+      title: "Weather Alert"
+      message: "It's starting to rain!"
+      data:
+        image: "http://homeassistant.local:3000/mdi.png?icon=mdi:weather-pouring&size=128"
+
+# Example 3: Dynamic weather icon notification
+- id: dynamic_weather_icon_notification
+  alias: "Dynamic Weather Icon Notification"
+  description: "Send a notification with a dynamic weather icon"
+  trigger:
+  - platform: state
+    entity_id: weather.home
+  action:
+  - service: notify.mobile_app_your_device
+    data:
+      title: "Weather Update"
+      message: "Current weather: {{ states('weather.home') }}"
+      data:
+        image: >-
+          {% set weather_icons = {
+            'clear-night': 'weather-night',
+            'cloudy': 'weather-cloudy',
+            'fog': 'weather-fog',
+            'hail': 'weather-hail',
+            'lightning': 'weather-lightning',
+            'lightning-rainy': 'weather-lightning-rainy',
+            'partlycloudy': 'weather-partly-cloudy',
+            'pouring': 'weather-pouring',
+            'rainy': 'weather-rainy',
+            'snowy': 'weather-snowy',
+            'snowy-rainy': 'weather-snowy-rainy',
+            'sunny': 'weather-sunny',
+            'windy': 'weather-windy',
+            'windy-variant': 'weather-windy-variant'
+          } %} {% set weather_state = states('weather.home') %} {% set icon = weather_icons[weather_state] if weather_state in weather_icons else 'weather-cloudy' %} http://homeassistant.local:3000/mdi.png?icon=mdi:{{ icon }}&size=96

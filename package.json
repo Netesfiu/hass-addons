@@ -1,0 +1,31 @@
+{
+  "name": "svg-to-png",
+  "version": "1.0.0",
+  "description": "Web service to convert Material Design Icons SVG to PNG for Home Assistant",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "nodemon src/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "svg",
+    "png",
+    "mdi",
+    "home-assistant",
+    "material-design-icons"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^1.6.0",
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "morgan": "^1.10.0",
+    "node-cache": "^5.1.2",
+    "sharp": "^0.32.6"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  }
+}
