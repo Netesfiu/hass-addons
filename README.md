@@ -1,6 +1,7 @@
 # Home Assistant Add-on: SVG to PNG Converter
-
-[![GitHub Release][releases-shield]][releases]
+[![Buy Me a Coffee](https://img.shields.io/badge/Buy%20me%20a%20coffee-F16061?style=plastic&logo=ko-fi&logoColor=white)](https://ko-fi.com/netesfiu)
+<br>
+<br>
 ![Project Stage][project-stage-shield]
 [![License][license-shield]](LICENSE.md)
 
