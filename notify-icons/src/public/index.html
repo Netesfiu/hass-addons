@@ -1,0 +1,372 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Notify Icons</title>
+<style>
+  :root {
+    --bg: #ffffff;
+    --panel: #f6f7f9;
+    --text: #14181d;
+    --muted: #5c6672;
+    --line: #d8dde3;
+    --accent: #0377d6;
+    --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #11151a;
+      --panel: #1a1f26;
+      --text: #e8edf2;
+      --muted: #9aa5b1;
+      --line: #2b333c;
+      --accent: #4aa8f0;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 20px;
+    background: var(--bg); color: var(--text);
+    font: 15px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  }
+  .wrap { max-width: 1000px; margin: 0 auto; }
+  header { display: flex; align-items: center; gap: 14px; margin-bottom: 18px; }
+  header h1 { font-size: 20px; margin: 0; font-weight: 650; }
+  header p { margin: 0; color: var(--muted); font-size: 13px; }
+  .grid { display: grid; grid-template-columns: minmax(0, 1fr) 320px; gap: 18px; align-items: start; }
+  @media (max-width: 760px) { .grid { grid-template-columns: 1fr; } }
+  .card {
+    background: var(--panel); border: 1px solid var(--line);
+    border-radius: 12px; padding: 16px;
+  }
+  .row { margin-bottom: 14px; }
+  .row:last-child { margin-bottom: 0; }
+  label { display: block; font-size: 12px; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); margin-bottom: 6px; }
+  input[type=text] {
+    width: 100%; padding: 8px 10px; border-radius: 8px;
+    border: 1px solid var(--line); background: var(--bg); color: var(--text);
+    font: inherit;
+  }
+  input[type=text]:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+  input[type=range] { width: 100%; accent-color: var(--accent); flex: 1 1 auto; min-width: 0; }
+  .val { font-family: var(--mono); font-size: 13px; color: var(--muted); white-space: nowrap; flex: 0 0 auto; }
+  .inline { display: flex; align-items: center; gap: 10px; }
+  .color-row { display: flex; align-items: center; gap: 8px; }
+  .swatch {
+    width: 34px; height: 34px; border-radius: 8px; border: 1px solid var(--line);
+    overflow: hidden; flex: 0 0 auto; cursor: pointer; position: relative;
+  }
+  .swatch input[type=color] {
+    position: absolute; inset: -6px; width: 150%; height: 150%; border: 0; padding: 0; cursor: pointer; background: none;
+  }
+  .shapes { display: flex; gap: 6px; flex-wrap: wrap; }
+  .shapes button {
+    flex: 1 1 auto; padding: 7px 10px; border-radius: 8px; cursor: pointer;
+    border: 1px solid var(--line); background: var(--bg); color: var(--text);
+    font: inherit; font-size: 13px;
+  }
+  .shapes button[aria-pressed=true] { border-color: var(--accent); color: var(--accent); font-weight: 600; }
+  .preview-card { text-align: center; }
+  .preview-box {
+    display: grid; place-items: center; min-height: 200px; padding: 10px;
+    border-radius: 10px; border: 1px dashed var(--line); margin-bottom: 10px;
+    background-image: linear-gradient(45deg, rgba(127,127,127,.12) 25%, transparent 25%, transparent 75%, rgba(127,127,127,.12) 75%),
+                      linear-gradient(45deg, rgba(127,127,127,.12) 25%, transparent 25%, transparent 75%, rgba(127,127,127,.12) 75%);
+    background-size: 16px 16px; background-position: 0 0, 8px 8px;
+  }
+  .preview-box img { image-rendering: auto; max-width: 100%; height: auto; }
+  .mono { font-family: var(--mono); font-size: 12.5px; word-break: break-all; }
+  textarea {
+    width: 100%; min-height: 116px; resize: vertical; padding: 10px;
+    border-radius: 8px; border: 1px solid var(--line);
+    background: var(--bg); color: var(--text); font-family: var(--mono); font-size: 12.5px;
+  }
+  .btns { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px; }
+  button.act {
+    padding: 8px 12px; border-radius: 8px; cursor: pointer; font: inherit; font-size: 13px;
+    border: 1px solid var(--accent); background: transparent; color: var(--accent);
+  }
+  button.act:hover { background: color-mix(in srgb, var(--accent) 12%, transparent); }
+  .hint { color: var(--muted); font-size: 12px; margin-top: 6px; }
+  .out { margin-top: 18px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <img src="icon.png" alt="" width="40" height="40">
+    <div>
+      <h1>Notify Icons</h1>
+      <p>Build an icon, preview it, copy the URL or the notification YAML.</p>
+    </div>
+  </header>
+
+  <div class="grid">
+    <section class="card">
+      <div class="row">
+        <label for="icon">Icon</label>
+        <input type="text" id="icon" list="iconList" value="mdi:weather-pouring" spellcheck="false" autocapitalize="off">
+        <datalist id="iconList"></datalist>
+        <div class="hint">Any <a href="https://pictogrammers.com/library/mdi/" target="_blank" rel="noreferrer">Material Design Icon</a>, with or without the <code>mdi:</code> prefix.</div>
+      </div>
+
+      <div class="row">
+        <label for="size">Size</label>
+        <div class="inline">
+          <input type="range" id="size" min="16" max="1024" step="8" value="128">
+          <span class="val" id="sizeVal">128 px</span>
+        </div>
+      </div>
+
+      <div class="row">
+        <label for="padding">Padding</label>
+        <div class="inline">
+          <input type="range" id="padding" min="0" max="50" step="1" value="15">
+          <span class="val" id="paddingVal">15 %</span>
+        </div>
+      </div>
+
+      <div class="row">
+        <label>Background shape</label>
+        <div class="shapes" id="shapes">
+          <button type="button" data-shape="none">none</button>
+          <button type="button" data-shape="circle">circle</button>
+          <button type="button" data-shape="square">square</button>
+          <button type="button" data-shape="rounded-square">rounded</button>
+        </div>
+      </div>
+
+      <div class="row">
+        <label for="iconColorText">Icon colour</label>
+        <div class="color-row">
+          <span class="swatch"><input type="color" id="iconColorPick" value="#000000"></span>
+          <input type="text" id="iconColorText" value="#000000" spellcheck="false" autocapitalize="off">
+        </div>
+        <div class="hint">Hex, a name like <code>white</code>, or <code>rgb(...)</code>.</div>
+      </div>
+
+      <div class="row">
+        <label for="bgColorText">Background colour</label>
+        <div class="color-row">
+          <span class="swatch"><input type="color" id="bgColorPick" value="#ffbf00"></span>
+          <input type="text" id="bgColorText" value="#ffbf00" spellcheck="false" autocapitalize="off">
+        </div>
+        <div class="row" style="margin-top:10px">
+          <div class="inline">
+            <input type="range" id="alpha" min="0" max="100" step="1" value="100">
+            <span class="val" id="alphaVal">100 %</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="card preview-card">
+      <label>Preview</label>
+      <div class="preview-box"><img id="preview" alt="icon preview" src="mdi.png?icon=mdi:weather-pouring&size=128&padding=15"></div>
+      <div class="val" id="dims">—</div>
+      <div class="btns" style="justify-content:center">
+        <button class="act" id="openBtn" type="button">Open full size</button>
+      </div>
+    </section>
+  </div>
+
+  <section class="card out">
+    <div class="row">
+      <label for="base">Public base URL</label>
+      <input type="text" id="base" spellcheck="false" autocapitalize="off">
+      <div class="hint">The phone downloads the image itself, so this must be an address your phone can reach. Ingress needs a Home Assistant login and is not usable in notifications.</div>
+    </div>
+    <div class="row">
+      <label for="url">Image URL</label>
+      <input type="text" id="url" class="mono" readonly>
+      <div class="btns">
+        <button class="act" id="copyUrl" type="button">Copy URL</button>
+        <button class="act" id="copyYaml" type="button">Copy YAML</button>
+      </div>
+    </div>
+    <div class="row">
+      <label for="yaml">Notification</label>
+      <textarea id="yaml" readonly spellcheck="false"></textarea>
+    </div>
+  </section>
+</div>
+
+<script>
+(function () {
+  const $ = (id) => document.getElementById(id);
+  const state = {
+    icon: 'mdi:weather-pouring',
+    size: 128,
+    padding: 15,
+    shape: 'circle',
+    iconColor: '#000000',
+    bgColor: '#ffbf00',
+    alpha: 100,
+    base: defaultBase(),
+  };
+
+  function defaultBase() {
+    // Behind ingress the page is served from the Home Assistant origin, which does
+    // not expose /mdi.png — suggest the app's own port instead.
+    if (location.pathname.includes('/api/hassio_ingress/')) return 'http://home-assistant.local:3000';
+    return location.origin;
+  }
+
+  function hexFromRgb(rgb) {
+    return '#' + [rgb.r, rgb.g, rgb.b].map((n) => n.toString(16).padStart(2, '0')).join('');
+  }
+
+  function normaliseIcon(v) {
+    v = (v || '').trim();
+    if (!v) return 'mdi:home';
+    return v.includes(':') ? v : 'mdi:' + v;
+  }
+
+  function hexToRgb(hex) {
+    const m = /^#?([0-9a-f]{3}|[0-9a-f]{6})$/i.exec((hex || '').trim());
+    if (!m) return null;
+    let h = m[1];
+    if (h.length === 3) h = h.split('').map((c) => c + c).join('');
+    return { r: parseInt(h.slice(0, 2), 16), g: parseInt(h.slice(2, 4), 16), b: parseInt(h.slice(4, 6), 16) };
+  }
+
+  function bgColorValue() {
+    const rgb = hexToRgb(state.bgColor);
+    if (!rgb) return state.bgColor;
+    if (state.alpha >= 100) return state.bgColor;
+    return 'rgba(' + rgb.r + ',' + rgb.g + ',' + rgb.b + ',' + (state.alpha / 100) + ')';
+  }
+
+  function enc(v) {
+    // Keep the URL readable: mdi:weather-sunny and rgba(1,2,3,1) stay as they are,
+    // everything that would break a URL (space, #, &, %) is still encoded.
+    return encodeURIComponent(v)
+      .replace(/%3A/gi, ':')
+      .replace(/%2C/gi, ',')
+      .replace(/%28/gi, '(')
+      .replace(/%29/gi, ')');
+  }
+
+  function query() {
+    const parts = [
+      'icon=' + enc(normaliseIcon(state.icon)),
+      'size=' + state.size,
+      'iconColor=' + enc(state.iconColor.trim() || 'black'),
+    ];
+    if (state.shape !== 'none') parts.push('bgColor=' + enc(bgColorValue()));
+    parts.push('bgShape=' + state.shape, 'padding=' + state.padding);
+    return parts.join('&');
+  }
+
+  function imagePath() { return 'mdi.png?' + query(); }
+
+  function absoluteUrl() {
+    const base = (state.base || '').trim().replace(/\/+$/, '');
+    return base ? base + '/' + imagePath() : imagePath();
+  }
+
+  function yamlSnippet() {
+    return [
+      'action: notify.mobile_app_my_phone',
+      'data:',
+      '  title: "Weather warning"',
+      '  message: "Something happened."',
+      '  data:',
+      '    image: "' + absoluteUrl() + '"',
+    ].join('\n');
+  }
+
+  let timer = null;
+  function render(immediate) {
+    const path = imagePath();
+    $('sizeVal').textContent = state.size + ' px';
+    $('paddingVal').textContent = state.padding + ' %';
+    $('alphaVal').textContent = state.alpha + ' %';
+    $('url').value = absoluteUrl();
+    $('yaml').value = yamlSnippet();
+    document.querySelectorAll('#shapes button').forEach((b) => {
+      b.setAttribute('aria-pressed', String(b.dataset.shape === state.shape));
+    });
+    clearTimeout(timer);
+    const apply = () => {
+      const img = $('preview');
+      img.onload = () => { $('dims').textContent = img.naturalWidth + ' × ' + img.naturalHeight + ' px'; };
+      img.onerror = () => { $('dims').textContent = 'could not render — check the icon name'; };
+      img.src = path;
+      $('openBtn').onclick = () => window.open(path, '_blank', 'noopener');
+    };
+    immediate ? apply() : (timer = setTimeout(apply, 160));
+    try { localStorage.setItem('notifyIcons', JSON.stringify(state)); } catch (e) {}
+  }
+
+  function bindText(id, key, after) {
+    $(id).addEventListener('input', (e) => {
+      state[key] = e.target.value;
+      if (after) after(e.target.value);
+      render();
+    });
+  }
+
+  // restore
+  try {
+    const saved = JSON.parse(localStorage.getItem('notifyIcons') || 'null');
+    if (saved && typeof saved === 'object') Object.assign(state, saved);
+  } catch (e) {}
+  state.base = state.base || defaultBase();
+
+  $('icon').value = state.icon;
+  $('size').value = state.size;
+  $('padding').value = state.padding;
+  $('alpha').value = state.alpha;
+  $('iconColorText').value = state.iconColor;
+  $('bgColorText').value = state.bgColor;
+  $('base').value = state.base;
+  if (hexToRgb(state.iconColor)) $('iconColorPick').value = hexFromRgb(hexToRgb(state.iconColor));
+  if (hexToRgb(state.bgColor)) $('bgColorPick').value = hexFromRgb(hexToRgb(state.bgColor));
+
+  bindText('icon', 'icon');
+  bindText('iconColorText', 'iconColor', (v) => { const rgb = hexToRgb(v); if (rgb) $('iconColorPick').value = v; });
+  bindText('bgColorText', 'bgColor', (v) => { const rgb = hexToRgb(v); if (rgb) $('bgColorPick').value = v; });
+  bindText('base', 'base');
+
+  $('size').addEventListener('input', (e) => { state.size = Number(e.target.value); render(); });
+  $('padding').addEventListener('input', (e) => { state.padding = Number(e.target.value); render(); });
+  $('alpha').addEventListener('input', (e) => { state.alpha = Number(e.target.value); render(); });
+  $('iconColorPick').addEventListener('input', (e) => { state.iconColor = e.target.value; $('iconColorText').value = e.target.value; render(); });
+  $('bgColorPick').addEventListener('input', (e) => { state.bgColor = e.target.value; $('bgColorText').value = e.target.value; render(); });
+  document.querySelectorAll('#shapes button').forEach((b) => {
+    b.addEventListener('click', () => { state.shape = b.dataset.shape; render(); });
+  });
+
+  function copy(text, btn) {
+    const done = () => { const old = btn.textContent; btn.textContent = 'Copied'; setTimeout(() => (btn.textContent = old), 1200); };
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(done, () => fallback());
+    } else fallback();
+    function fallback() {
+      const t = document.createElement('textarea');
+      t.value = text; document.body.appendChild(t); t.select();
+      try { document.execCommand('copy'); done(); } catch (e) {}
+      document.body.removeChild(t);
+    }
+  }
+  $('copyUrl').addEventListener('click', (e) => copy($('url').value, e.target));
+  $('copyYaml').addEventListener('click', (e) => copy($('yaml').value, e.target));
+
+  // icon names for the picker
+  fetch('icons')
+    .then((r) => (r.ok ? r.json() : []))
+    .then((names) => {
+      const list = $('iconList');
+      const frag = document.createDocumentFragment();
+      names.forEach((n) => { const o = document.createElement('option'); o.value = 'mdi:' + n; frag.appendChild(o); });
+      list.appendChild(frag);
+    })
+    .catch(() => {});
+
+  render(true);
+})();
+</script>
+</body>
+</html>

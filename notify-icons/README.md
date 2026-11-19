@@ -16,6 +16,7 @@ data:
 ```
 
 - Size, icon color, background color and background shape per request
+- Playground in the sidebar: pick an icon, drag the sliders, copy the URL or the YAML
 - In-memory cache, so repeated notifications are served instantly
 - Works with the iOS and Android companion apps
 

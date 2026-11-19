@@ -1,6 +1,8 @@
+const path = require('path');
 const express = require('express');
 const cors = require('cors');
 const morgan = require('morgan');
+const axios = require('axios');
 const mdiRoutes = require('./routes/mdi');
 const { errorHandler } = require('./middleware/errorHandler');
 
@@ -24,26 +26,33 @@ app.use((req, res, next) => {
 app.use(cors());
 app.use(morgan('combined'));
 
+// Playground UI (also served through the ingress panel)
+app.use(express.static(path.join(__dirname, 'public'), { index: 'index.html' }));
+
+// Icon names for the playground's picker, fetched once and cached for a day
+const ICON_META_URL = 'https://cdn.jsdelivr.net/npm/@mdi/svg/meta.json';
+const ICON_CACHE_MS = 24 * 60 * 60 * 1000;
+let iconNames = null;
+let iconNamesAt = 0;
+
+app.get('/icons', async (req, res, next) => {
+  try {
+    if (iconNames && Date.now() - iconNamesAt < ICON_CACHE_MS) {
+      return res.json(iconNames);
+    }
+    const { data } = await axios.get(ICON_META_URL, { timeout: 20000 });
+    iconNames = (Array.isArray(data) ? data : [])
+      .filter((icon) => icon && icon.name && !icon.deprecated)
+      .map((icon) => icon.name);
+    iconNamesAt = Date.now();
+    res.json(iconNames);
+  } catch (err) {
+    next(err);
+  }
+});
+
 // Routes
 app.use('/', mdiRoutes);
-
-// Landing page (shown in the Home Assistant ingress panel)
-app.get('/', (req, res) => {
-  const base = req.headers['x-ingress-path'] || '';
-  res
-    .status(200)
-    .type('html')
-    .send(
-      `<!doctype html><html><head><meta charset="utf-8">` +
-        `<title>Notify Icons</title></head><body ` +
-        `style="font-family:sans-serif;padding:1rem 1.5rem;line-height:1.5">` +
-        `<h2>Notify Icons</h2>` +
-        `<p>Endpoint: <code>GET ${base}/mdi.png?icon=mdi:icon-name&amp;size=96</code></p>` +
-        `<p><img alt="example" src="${base}/mdi.png?icon=mdi:weather-sunny&amp;size=128&amp;iconColor=black&amp;bgColor=rgba(255,191,0,1)&amp;bgShape=circle&amp;padding=15"></p>` +
-        `<p><a href="${base}/health">health</a> · <a href="${base}/cache/stats">cache/stats</a></p>` +
-        `</body></html>`
-    );
-});
 
 // Health check endpoint
 app.get('/health', (req, res) => {

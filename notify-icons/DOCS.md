@@ -23,6 +23,17 @@ Home Assistant notifications.
 Copy this folder to the local apps folder (`/addons` on Home Assistant OS, or the folder your installation
 mounts there), reload the store, and install it from the local apps section.
 
+## Playground
+
+The app ships a small UI, reachable from the sidebar panel (ingress) or the port directly. Pick an icon from
+the list or type any MDI name, drag the size and padding sliders, choose a background shape and colours, and
+the preview updates as you go. It shows the resulting URL and a ready-to-paste notification snippet, both with
+copy buttons.
+
+Because a phone downloads the image without a Home Assistant session, notifications must point at the app's
+own port (`http://home-assistant.local:3000` by default), **not** at the ingress URL. The *Public base URL*
+field sets which address ends up in the copied URL, and it is remembered in the browser.
+
 ## Endpoints
 
 ### `GET /mdi.png`
