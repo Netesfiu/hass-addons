@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.1.7
+
+- Removed `apparmor.txt` again: with a custom profile the container fails to
+  boot (`/bin/sh: can't open '/init': Permission denied`) even when the profile
+  allows everything except the data directories. The custom profile needs the
+  host AppArmor audit log to be developed, so the app runs with the default
+  Supervisor profile until then.
+
 ## 1.1.6
 
 - AppArmor profile rewritten as allow-then-deny: the container may boot and
