@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.2.1
+
+- Documented what each payload key shows on iOS, including `icon_url` as the sender
+  avatar (which takes precedence over `notification_icon`)
+
+
 ## 1.3.0
 
 - Playground snippet now emits `icon_url` as well as `image`: on iOS `icon_url` is the

@@ -145,6 +145,26 @@ endpoint and shows a sample icon.
   open TCP connections; `/config`, `/data`, `/media`, `/share`, `/ssl` and `/backup` are denied.
 - The app needs no Home Assistant API access beyond the Supervisor API it uses for logging.
 
+## What the phone shows
+
+| Slot on iOS | Key | Notes |
+| --- | --- | --- |
+| Left icon (sender avatar) | `icon_url` — a URL to an image | Turns the notification into a *communication notification*: the image is shown as the sender avatar. It needs a `title`, which becomes the sender name. Takes precedence over `notification_icon`. |
+| Left icon, without an image | `notification_icon` — an `mdi:` slug | The glyph is drawn in white on the Home Assistant blue; `notification_icon_color` and `color` tint the glyph and its background. |
+| Collapsed thumbnail | `image` | Downloaded correctly, but iOS 27 does not draw it while collapsed (open upstream issue). |
+| Expanded image | `image` | Shown at full size when the notification is long-pressed. |
+
+So to get the rendered PNG as the small icon on the left, send it as **`icon_url`** — and note that `color`
+has no effect on an `icon_url` image, because the colours are baked into the PNG already:
+
+```yaml
+data:
+  icon_url: "http://homeassistant.local:3000/mdi.png?icon=mdi:weather-pouring&size=192&iconColor=black&bgColor=rgba(255,191,0,1)&bgShape=circle&padding=15"
+  image: "http://homeassistant.local:3000/mdi.png?icon=mdi:weather-pouring&size=512&iconColor=black&bgColor=rgba(255,191,0,1)&bgShape=circle&padding=15"
+```
+
+Send the avatar at roughly `size=192` and the expanded image larger (`512`), since both are separate downloads.
+
 ## Troubleshooting
 
 **The notification arrives without a picture**
@@ -156,6 +176,8 @@ endpoint and shows a sample icon.
 3. On iOS 27 the companion app sometimes drops the small thumbnail in the collapsed banner while the image is
    there when you long-press the notification. That is an app issue, not this app — see
    [home-assistant/iOS#5838](https://github.com/home-assistant/iOS/issues/5838).
+4. If the small icon on the left is the plain Home Assistant icon, `icon_url` is missing or is not a URL —
+   see [What the phone shows](#what-the-phone-shows).
 
 **The colors of an old notification do not change**
 
