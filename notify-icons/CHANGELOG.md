@@ -1,9 +1,10 @@
 # Changelog
 
-## 1.2.1
+## 1.3.1
 
-- Documented what each payload key shows on iOS, including `icon_url` as the sender
-  avatar (which takes precedence over `notification_icon`)
+- Merged the duplicate icon_url notes into one section; the playground snippet now sends
+  `icon_url` alongside `image`
+- Corrected the docs where they still described a bundled AppArmor profile and a read-only panel
 
 
 ## 1.3.0
