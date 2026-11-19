@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.1.8
+
+- Re-added `apparmor.txt` (allow-then-deny: the app runs, but `/config`,
+  `/data`, `/media`, `/share`, `/ssl`, `/backup` and the sensitive kernel
+  interfaces are denied). 1.1.2-1.1.6 blocked the s6 boot because Supervisor
+  kept the first broken profile loaded; a clean reinstall loads it correctly.
+
 ## 1.1.7
 
 - Removed `apparmor.txt` again: with a custom profile the container fails to
