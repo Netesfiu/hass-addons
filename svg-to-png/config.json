@@ -1,6 +1,6 @@
 {
   "name": "SVG to PNG Converter",
-  "version": "1.1.2",
+  "version": "1.1.3",
   "slug": "svg-to-png",
   "description": "Convert Material Design Icons SVG to PNG for Home Assistant notifications",
   "url": "https://github.com/Netesfiu/hass-addons/tree/master/svg-to-png",
@@ -27,7 +27,7 @@
   "ingress_port": 3000,
   "panel_icon": "mdi:image-outline",
   "panel_title": "SVG to PNG",
-  "apparmor": "profile",
+  "apparmor": true,
   "options": {},
   "schema": {}
 }

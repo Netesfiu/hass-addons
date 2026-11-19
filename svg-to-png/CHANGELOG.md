@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.1.3
+
+- `apparmor` is a boolean in the app schema; the profile itself comes from
+  `apparmor.txt`
+
 ## 1.1.2
 
 - Added an AppArmor profile (`apparmor: profile`): the app may read its own code,
