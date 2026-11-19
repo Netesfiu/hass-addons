@@ -1,0 +1,34 @@
+name: "Notify Icons"
+version: "1.0.0"
+slug: "notify-icons"
+description: "Render Material Design Icons as PNG images for Home Assistant notifications"
+url: "https://github.com/Netesfiu/hass-addons/tree/master/notify-icons"
+
+arch:
+  - aarch64
+  - amd64
+
+init: false
+startup: services
+boot: auto
+stage: stable
+
+# The HTTP port is the point of the app: notification image URLs must be
+# reachable from a phone, which has no Home Assistant session.
+ports:
+  3000/tcp: 3000
+webui: "http://[HOST]:[PORT:3000]"
+watchdog: "http://[HOST]:[PORT:3000]/health"
+
+# Authenticated panel inside Home Assistant
+ingress: true
+ingress_port: 3000
+panel_icon: "mdi:bell-badge-outline"
+panel_title: "Notify Icons"
+
+hassio_api: true
+hassio_role: default
+apparmor: true
+
+options: {}
+schema: {}
