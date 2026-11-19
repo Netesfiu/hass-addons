@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.1.5
+
+- AppArmor profile: `/init` needs read+execute (`rix`), not just `ix`
+
 ## 1.1.4
 
 - AppArmor profile: allow s6-overlay/bashio boot (`/init`, `/etc/s6-overlay`,

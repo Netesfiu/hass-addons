@@ -17,7 +17,8 @@ profile svg_to_png flags=(attach_disconnected,mediate_deleted) {
   network,
 
   # --- boot: s6-overlay, bashio, shells and tooling -------------------------
-  /init ix,
+  / r,
+  /init rix,
   /bin/** rix,
   /sbin/** rix,
   /usr/** rix,
