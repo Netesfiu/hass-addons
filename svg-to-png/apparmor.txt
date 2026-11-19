@@ -1,52 +1,18 @@
 # AppArmor profile for the SVG to PNG converter app.
 #
 # The profile name is rewritten to the app slug by Supervisor on install, so
-# the name below is only a placeholder.
+# the name below is only a placeholder. Self-contained: no #include, so it does
+# not depend on the abstraction files shipped by the host AppArmor userspace.
 #
-# Intentionally self-contained (no #include) so it does not depend on the
-# abstraction files shipped by the host AppArmor userspace.
-#
-# Model: the app (Alpine + s6-overlay + bashio, then Node.js) may read and
-# execute what it needs to boot and serve; the Home Assistant data directories
-# and the sensitive /proc and /sys areas are explicitly denied.
+# Model: allow the container to boot and run (s6-overlay, bashio, Node.js),
+# and deny the Home Assistant data directories plus the most sensitive kernel
+# interfaces. AppArmor "deny" rules take precedence over the allow rules below.
 profile svg_to_png flags=(attach_disconnected,mediate_deleted) {
-  # --- capabilities ---------------------------------------------------------
   capability,
-
-  # --- networking -----------------------------------------------------------
   network,
 
-  # --- boot: s6-overlay, bashio, shells and tooling -------------------------
-  / r,
-  /init rix,
-  /bin/** rix,
-  /sbin/** rix,
-  /usr/** rix,
-  /lib/** rm,
-  /package/** rix,
-  /etc/cont-init.d/** rix,
-  /etc/services.d/** rix,
-  /etc/fix-attrs.d/** r,
-  /etc/s6/** r,
-  /etc/s6-overlay/** rix,
-  /etc/periodic/** rix,
-
-  # --- configuration, TLS, resolver ----------------------------------------
-  /etc/** r,
-  /run/** rwkl,
-  /var/run/** rwkl,
-  /var/log/** rwkl,
-  /var/lib/** rwkl,
-  /tmp/** rwkl,
-  /app/** r,
-  /proc/** rwk,
-  /sys/** r,
-
-  # --- devices --------------------------------------------------------------
-  /dev/** rwkl,
-  deny /dev/mem rwklx,
-  deny /dev/kmem rwklx,
-  deny /dev/port rwklx,
+  # Everything the image itself needs to boot and serve
+  /** rixwklm,
 
   # --- Home Assistant managed data stays out of reach -----------------------
   deny /config/** rwklx,
@@ -59,7 +25,13 @@ profile svg_to_png flags=(attach_disconnected,mediate_deleted) {
   deny /local_apps/** rwklx,
   deny /homeassistant/** rwklx,
   deny /root/** rwklx,
+
+  # --- kernel interfaces that are never needed ------------------------------
   deny /proc/sys/** w,
   deny /proc/kcore r,
   deny /sys/kernel/** w,
+  deny /dev/mem rwklx,
+  deny /dev/kmem rwklx,
+  deny /dev/port rwklx,
+  deny /dev/kmsg rwklx,
 }

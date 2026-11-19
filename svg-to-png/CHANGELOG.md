@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.1.6
+
+- AppArmor profile rewritten as allow-then-deny: the container may boot and
+  serve, while `/config`, `/data`, `/media`, `/share`, `/ssl`, `/backup` and the
+  sensitive kernel interfaces are denied
+
 ## 1.1.5
 
 - AppArmor profile: `/init` needs read+execute (`rix`), not just `ix`
