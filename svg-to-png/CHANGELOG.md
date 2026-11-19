@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.1.4
+
+- AppArmor profile: allow s6-overlay/bashio boot (`/init`, `/etc/s6-overlay`,
+  `/usr`, `/bin`, `/sbin`, `/run`) which 1.1.2 blocked, keeping the deny rules
+  on `/config`, `/data`, `/media`, `/share`, `/ssl`, `/backup` and `/proc/sys`
+
 ## 1.1.3
 
 - `apparmor` is a boolean in the app schema; the profile itself comes from

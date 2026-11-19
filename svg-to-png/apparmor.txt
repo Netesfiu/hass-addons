@@ -3,48 +3,51 @@
 # The profile name is rewritten to the app slug by Supervisor on install, so
 # the name below is only a placeholder.
 #
-# Intentionally self-contained: no #include, so the profile does not depend on
-# the abstraction files shipped by the AppArmor userspace on the host. It grants
-# exactly what a Node.js HTTP service needs (read its own code, resolve DNS,
-# speak TCP, write temp files) and denies the Home Assistant data directories.
+# Intentionally self-contained (no #include) so it does not depend on the
+# abstraction files shipped by the host AppArmor userspace.
+#
+# Model: the app (Alpine + s6-overlay + bashio, then Node.js) may read and
+# execute what it needs to boot and serve; the Home Assistant data directories
+# and the sensitive /proc and /sys areas are explicitly denied.
 profile svg_to_png flags=(attach_disconnected,mediate_deleted) {
+  # --- capabilities ---------------------------------------------------------
+  capability,
+
   # --- networking -----------------------------------------------------------
-  network inet stream,
-  network inet6 stream,
-  network inet dgram,
-  network inet6 dgram,
+  network,
 
-  # --- runtime binary and libraries -----------------------------------------
-  /usr/bin/node ix,
-  /usr/lib/** mr,
-  /lib/** mr,
-  /usr/share/** r,
+  # --- boot: s6-overlay, bashio, shells and tooling -------------------------
+  /init ix,
+  /bin/** rix,
+  /sbin/** rix,
+  /usr/** rix,
+  /lib/** rm,
+  /package/** rix,
+  /etc/cont-init.d/** rix,
+  /etc/services.d/** rix,
+  /etc/fix-attrs.d/** r,
+  /etc/s6/** r,
+  /etc/s6-overlay/** rix,
+  /etc/periodic/** rix,
 
-  # --- application code -----------------------------------------------------
-  /app/** rm,
-
-  # --- TLS, resolver, system info -------------------------------------------
-  /etc/ssl/** r,
-  /etc/ca-certificates/** r,
-  /etc/resolv.conf r,
-  /etc/hosts r,
-  /etc/services r,
-  /etc/nsswitch.conf r,
-  /etc/passwd r,
-  /etc/group r,
-  /etc/localtime r,
-  /proc/** r,
-  /sys/devices/system/cpu/** r,
-
-  # --- devices and scratch space --------------------------------------------
-  /dev/null rw,
-  /dev/zero r,
-  /dev/urandom r,
-  /dev/random r,
-  /tmp/** rwkl,
+  # --- configuration, TLS, resolver ----------------------------------------
+  /etc/** r,
   /run/** rwkl,
+  /var/run/** rwkl,
+  /var/log/** rwkl,
+  /var/lib/** rwkl,
+  /tmp/** rwkl,
+  /app/** r,
+  /proc/** rwk,
+  /sys/** r,
 
-  # --- Home Assistant managed data stays out of reach ------------------------
+  # --- devices --------------------------------------------------------------
+  /dev/** rwkl,
+  deny /dev/mem rwklx,
+  deny /dev/kmem rwklx,
+  deny /dev/port rwklx,
+
+  # --- Home Assistant managed data stays out of reach -----------------------
   deny /config/** rwklx,
   deny /data/** rwklx,
   deny /media/** rwklx,
@@ -55,9 +58,7 @@ profile svg_to_png flags=(attach_disconnected,mediate_deleted) {
   deny /local_apps/** rwklx,
   deny /homeassistant/** rwklx,
   deny /root/** rwklx,
-  deny /proc/sys/** rwklx,
-  deny /sys/kernel/** rwklx,
-  deny /dev/mem rwklx,
-  deny /dev/kmem rwklx,
-  deny /dev/port rwklx,
+  deny /proc/sys/** w,
+  deny /proc/kcore r,
+  deny /sys/kernel/** w,
 }
