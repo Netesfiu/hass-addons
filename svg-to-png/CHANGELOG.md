@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.2.0
+
+- Removed the custom AppArmor profile. With it loaded the container could not be
+  stopped (`cannot stop container: permission denied`), so updates failed and the
+  app could end up in an error state. The app uses the Supervisor's default
+  profile, which keeps updates working.
+
+
 ## 1.1.9
 
 - Repository restructured for the current app store: `config.yaml` and `build.yaml`
