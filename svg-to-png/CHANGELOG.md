@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.1.2
+
+- Added an AppArmor profile (`apparmor: profile`): the app may read its own code,
+  resolve DNS and open TCP connections, and cannot touch the Home Assistant
+  data directories
+
 ## 1.1.1
 
 - Added Home Assistant ingress support (ingress panel, no longer requires a
