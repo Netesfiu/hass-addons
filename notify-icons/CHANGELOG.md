@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.2.0
+
+- Playground UI translated into English and Hungarian, following the browser language,
+  with a picker in the top right that remembers the choice (`src/public/i18n/`)
+- Hungarian translation for the Configuration tab (`translations/hu.yaml`)
+
+
 ## 1.1.0
 
 - Playground UI on `/` (also the ingress panel): icon picker with the full MDI list, size and padding

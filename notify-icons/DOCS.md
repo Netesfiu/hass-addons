@@ -34,6 +34,9 @@ Because a phone downloads the image without a Home Assistant session, notificati
 own port (`http://home-assistant.local:3000` by default), **not** at the ingress URL. The *Public base URL*
 field sets which address ends up in the copied URL, and it is remembered in the browser.
 
+The interface is available in **English** and **Hungarian**. It follows the browser language by default; the
+picker in the top right overrides it and the choice is remembered.
+
 ## Endpoints
 
 ### `GET /mdi.png`
