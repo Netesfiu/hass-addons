@@ -19,6 +19,8 @@ data:
 - In-memory cache, so repeated notifications are served instantly
 - Works with the iOS and Android companion apps
 
+![Severity colours](https://raw.githubusercontent.com/Netesfiu/hass-addons/master/svg-to-png/docs/severity-palette.png)
+
 ## Installation
 
 1. Go to **Settings** > **Apps** and select **Install app**.

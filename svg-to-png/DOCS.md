@@ -55,6 +55,16 @@ Number of cached variants and their size.
 
 Drops the in-memory cache, for example after changing a color scheme you reuse.
 
+## Styling
+
+Colours and shapes are per request, not global settings.
+
+![Severity colours](https://raw.githubusercontent.com/Netesfiu/hass-addons/master/svg-to-png/docs/severity-palette.png)
+
+![Background shapes](https://raw.githubusercontent.com/Netesfiu/hass-addons/master/svg-to-png/docs/shapes.png)
+
+Background shapes, left to right: `none`, `circle`, `square`, `rounded-square`.
+
 ## Using it in notifications
 
 ```yaml
