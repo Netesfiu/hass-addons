@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.3.0
+
+- Playground snippet now emits `icon_url` as well as `image`: on iOS `icon_url` is the
+  sender avatar on the left of the notification (and it wins over `notification_icon`),
+  on Android it is the large icon
+- Documentation: table of which key shows what on each platform
+
+
 ## 1.2.0
 
 - Playground UI translated into English and Hungarian, following the browser language,

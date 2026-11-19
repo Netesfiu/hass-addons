@@ -326,12 +326,16 @@
   }
 
   function yamlSnippet() {
+    // icon_url gives the rendered icon as the sender avatar on iOS (it takes
+    // precedence over notification_icon) and as the large icon on Android;
+    // image is the attachment shown when the notification is expanded.
     return [
       'action: notify.mobile_app_my_phone',
       'data:',
       '  title: "' + t('yamlTitle') + '"',
       '  message: "' + t('yamlMessage') + '"',
       '  data:',
+      '    icon_url: "' + absoluteUrl() + '"',
       '    image: "' + absoluteUrl() + '"',
     ].join('\n');
   }

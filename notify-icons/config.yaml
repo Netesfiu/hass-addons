@@ -1,5 +1,5 @@
 name: "Notify Icons"
-version: "1.2.0"
+version: "1.3.0"
 slug: "notify-icons"
 description: "Render Material Design Icons as PNG images for Home Assistant notifications"
 url: "https://github.com/Netesfiu/hass-addons/tree/master/notify-icons"

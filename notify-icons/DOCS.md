@@ -109,6 +109,28 @@ URL must be reachable **from the phone**, not just from Home Assistant.
 
 Ready-to-paste automations: [`examples/`](examples/).
 
+### Where the icon and the image appear
+
+iOS and Android read different keys, and only some of them accept an image URL:
+
+| Key | iOS | Android |
+| --- | --- | --- |
+| `icon_url` | **sender avatar on the left** of the notification (communication style, needs a `title`). Takes precedence over `notification_icon`. | large icon |
+| `image` | attachment: full width when the notification is expanded | big picture |
+| `notification_icon` | an MDI glyph drawn over the app icon, white by default | status-bar icon |
+
+To get the rendered icon on the left of an iOS notification, send the same URL as `icon_url` **and** `image`:
+
+```yaml
+action: notify.mobile_app_my_phone
+data:
+  title: "Yellow rain warning"
+  message: "More than 20 mm of rain expected."
+  data:
+    icon_url: "https://mdi.example.com/mdi.png?icon=mdi:weather-pouring&size=192&bgColor=rgba(255,191,0,1)&bgShape=circle"
+    image: "https://mdi.example.com/mdi.png?icon=mdi:weather-pouring&size=192&bgColor=rgba(255,191,0,1)&bgShape=circle"
+```
+
 ## Ingress panel
 
 The app also registers an authenticated panel, so `/mdi.png` and the small landing page are reachable through

@@ -1,6 +1,6 @@
 {
   "name": "notify-icons",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "description": "Web service rendering Material Design Icons as PNG for Home Assistant notifications",
   "main": "src/index.js",
   "scripts": {
