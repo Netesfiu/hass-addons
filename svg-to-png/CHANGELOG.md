@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.1.1
+
+- Added Home Assistant ingress support (ingress panel, no longer requires a
+  directly exposed port for the UI)
+- Routes now also work behind the `/api/hassio_ingress/<token>` prefix
+- Added a small landing page listing the endpoint and a sample icon
+- Fixed the `url` field pointing at the upstream example repository
+
 ## 1.1.0
 
 - Added support for custom icon colors
