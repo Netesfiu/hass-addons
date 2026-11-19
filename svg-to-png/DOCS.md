@@ -93,6 +93,8 @@ data:
 Replace `homeassistant.local` with the address your phone uses. The phone downloads the image itself, so the
 URL must be reachable **from the phone**, not just from Home Assistant.
 
+Ready-to-paste automations: [`examples/`](examples/).
+
 ## Ingress panel
 
 The app also registers an authenticated panel, so `/mdi.png` and the small landing page are reachable through

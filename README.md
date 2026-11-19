@@ -20,7 +20,7 @@ notifications can show a picture.
 
 - [SVG to PNG Converter — endpoints, styling, troubleshooting](svg-to-png/DOCS.md)
 - [Changelog](svg-to-png/CHANGELOG.md)
-- [Manual installation](svg-to-png/INSTALL.md)
+- [Example automations](svg-to-png/examples/)
 
 ## Support
 

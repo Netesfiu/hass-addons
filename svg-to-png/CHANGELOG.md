@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.2.1
+
+- Dropped `build.yaml`: the Supervisor deprecates it, and the Dockerfile already
+  defaults `BUILD_FROM`
+- Removed `INSTALL.md` and `install-to-ha.sh`; both duplicated the documentation,
+  which now carries the manual installation path
+- Documentation links the example automations in `examples/`
+
+
 ## 1.2.0
 
 - Removed the custom AppArmor profile. With it loaded the container could not be
