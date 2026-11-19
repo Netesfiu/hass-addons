@@ -1,4 +1,4 @@
-<p align="center"><img src="logo.png" alt="SVG to PNG Converter" width="250"></p>
+<p align="center"><img src="logo.png" alt="Notify Icons" width="250"></p>
 
 Turns any [Material Design Icon](https://pictogrammers.com/library/mdi/) into a styled PNG image, on the fly,
 for Home Assistant notifications.
@@ -19,14 +19,14 @@ data:
 - In-memory cache, so repeated notifications are served instantly
 - Works with the iOS and Android companion apps
 
-![Severity colours](https://raw.githubusercontent.com/Netesfiu/hass-addons/master/svg-to-png/docs/severity-palette.png)
+![Severity colours](https://raw.githubusercontent.com/Netesfiu/hass-addons/master/notify-icons/docs/severity-palette.png)
 
 ## Installation
 
 1. Go to **Settings** > **Apps** and select **Install app**.
 2. Open the menu in the top right, select **Repositories**, and add
    `https://github.com/Netesfiu/hass-addons`.
-3. Find **SVG to PNG Converter**, install it, and start it.
+3. Find **Notify Icons**, install it, and start it.
 
 The service listens on port 3000. Use that URL in your notifications, for example
 `http://homeassistant.local:3000/mdi.png?icon=mdi:weather-sunny&size=96`.

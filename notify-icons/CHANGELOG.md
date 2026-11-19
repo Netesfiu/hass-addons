@@ -1,5 +1,15 @@
 # Changelog
 
+## 1.3.0
+
+- Renamed the project to **Notify Icons**: folder `notify-icons`, `slug: notify-icons`
+- New icon and logo
+- Description reworded to "Render Material Design Icons as PNG images"
+- **The slug change makes this a new app for the Supervisor.** Uninstall the old
+  "SVG to PNG Converter" app before installing "Notify Icons". The host port stays
+  `3000`, so the image URLs in your notifications keep working.
+
+
 ## 1.2.1
 
 - Dropped `build.yaml`: the Supervisor deprecates it, and the Dockerfile already

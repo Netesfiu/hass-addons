@@ -1,8 +1,8 @@
-name: "SVG to PNG Converter"
-version: "1.2.1"
-slug: "svg-to-png"
-description: "Convert Material Design Icons SVG to PNG for Home Assistant notifications"
-url: "https://github.com/Netesfiu/hass-addons/tree/master/svg-to-png"
+name: "Notify Icons"
+version: "1.3.0"
+slug: "notify-icons"
+description: "Render Material Design Icons as PNG images for Home Assistant notifications"
+url: "https://github.com/Netesfiu/hass-addons/tree/master/notify-icons"
 
 arch:
   - aarch64
@@ -23,8 +23,8 @@ watchdog: "http://[HOST]:[PORT:3000]/health"
 # Authenticated panel inside Home Assistant
 ingress: true
 ingress_port: 3000
-panel_icon: "mdi:image-outline"
-panel_title: "SVG to PNG"
+panel_icon: "mdi:bell-badge-outline"
+panel_title: "Notify Icons"
 
 hassio_api: true
 hassio_role: default

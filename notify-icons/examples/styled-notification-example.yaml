@@ -1,4 +1,4 @@
-# Example Home Assistant automations that use the SVG to PNG converter
+# Example Home Assistant automations that use the Notify Icons
 # with styling options for icons and backgrounds
 
 # Example 1: Basic weather notification with colored icon
@@ -111,7 +111,7 @@ automation:
   action:
   - service: persistent_notification.create
     data:
-      title: "SVG to PNG Converter - Shape Examples"
+      title: "Notify Icons - Shape Examples"
       message: >-
         Circle: ![Circle](http://homeassistant.local:3000/mdi.png?icon=mdi:check-circle&size=48&iconColor=white&bgColor=%234CAF50&bgShape=circle)
 

@@ -35,9 +35,9 @@ app.get('/', (req, res) => {
     .type('html')
     .send(
       `<!doctype html><html><head><meta charset="utf-8">` +
-        `<title>SVG to PNG Converter</title></head><body ` +
+        `<title>Notify Icons</title></head><body ` +
         `style="font-family:sans-serif;padding:1rem 1.5rem;line-height:1.5">` +
-        `<h2>SVG to PNG Converter</h2>` +
+        `<h2>Notify Icons</h2>` +
         `<p>Endpoint: <code>GET ${base}/mdi.png?icon=mdi:icon-name&amp;size=96</code></p>` +
         `<p><img alt="example" src="${base}/mdi.png?icon=mdi:weather-sunny&amp;size=128&amp;iconColor=black&amp;bgColor=rgba(255,191,0,1)&amp;bgShape=circle&amp;padding=15"></p>` +
         `<p><a href="${base}/health">health</a> · <a href="${base}/cache/stats">cache/stats</a></p>` +

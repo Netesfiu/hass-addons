@@ -1,4 +1,4 @@
-# SVG to PNG Converter
+# Notify Icons
 
 Renders [Material Design Icons](https://pictogrammers.com/library/mdi/) as PNG images for the `image` field of
 Home Assistant notifications.
@@ -16,7 +16,7 @@ Home Assistant notifications.
 
 1. **Settings** > **Apps** > **Install app**.
 2. Menu in the top right > **Repositories** > add `https://github.com/Netesfiu/hass-addons`.
-3. Install **SVG to PNG Converter** and start it.
+3. Install **Notify Icons** and start it.
 
 **Manually, as a local app**
 
@@ -59,9 +59,9 @@ Drops the in-memory cache, for example after changing a color scheme you reuse.
 
 Colours and shapes are per request, not global settings.
 
-![Severity colours](https://raw.githubusercontent.com/Netesfiu/hass-addons/master/svg-to-png/docs/severity-palette.png)
+![Severity colours](https://raw.githubusercontent.com/Netesfiu/hass-addons/master/notify-icons/docs/severity-palette.png)
 
-![Background shapes](https://raw.githubusercontent.com/Netesfiu/hass-addons/master/svg-to-png/docs/shapes.png)
+![Background shapes](https://raw.githubusercontent.com/Netesfiu/hass-addons/master/notify-icons/docs/shapes.png)
 
 Background shapes, left to right: `none`, `circle`, `square`, `rounded-square`.
 

@@ -1,7 +1,7 @@
-# Example Home Assistant automations that use the SVG to PNG converter
+# Example Home Assistant automations that use the Notify Icons
 # to send notifications with weather icons
 
-# Example 1: Basic weather change notification with SVG to PNG converter
+# Example 1: Basic weather change notification with Notify Icons
 automation:
 - id: weather_alert_notification
   alias: "Weather Alert Notification"
