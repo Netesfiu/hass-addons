@@ -1,61 +1,31 @@
-# Home Assistant Add-on: SVG to PNG Converter
-[![Buy Me a Coffee](https://img.shields.io/badge/Buy%20me%20a%20coffee-F16061?style=plastic&logo=ko-fi&logoColor=white)](https://ko-fi.com/netesfiu)
-<br>
-<br>
-![Project Stage][project-stage-shield]
-[![License][license-shield]](LICENSE.md)
+# SVG to PNG Converter for Home Assistant
 
-![Supports aarch64 Architecture][aarch64-shield]
-![Supports amd64 Architecture][amd64-shield]
-![Supports armhf Architecture][armhf-shield]
-![Supports armv7 Architecture][armv7-shield]
-![Supports i386 Architecture][i386-shield]
+[![Open your Home Assistant instance and show the add app repository dialog with a specific repository URL pre-filled.](https://my.home-assistant.io/badges/supervisor_add_addon_repository.svg)](https://my.home-assistant.io/redirect/supervisor_add_addon_repository/?repository_url=https%3A%2F%2Fgithub.com%2FNetesfiu%2Fhass-addons)
 
-Convert Material Design Icons (MDI) SVG icons to PNG images for use in Home Assistant notifications.
+Home Assistant apps that turn [Material Design Icons](https://pictogrammers.com/library/mdi/) into PNG images, so
+notifications can show a picture.
 
-## About
-
-This add-on provides a web service that dynamically converts Material Design Icons (MDI) SVG icons into PNG images. It's particularly useful for Home Assistant notifications that require PNG images.
-
-The service accepts HTTP GET requests with icon name and size parameters, fetches the corresponding SVG from the official MDI CDN, converts it to PNG, and serves it with the correct MIME type.
-
-### Key Features
-
-- Converts MDI SVG icons to PNG images on-the-fly
-- Configurable image size
-- Custom icon colors
-- Background shapes (circle, square, rounded-square)
-- Customizable background colors
-- Adjustable padding between icon and background
-- In-memory caching for improved performance
-- CORS support for cross-origin requests
-- Error handling with appropriate HTTP status codes
+| App | What it does |
+| --- | --- |
+| [SVG to PNG Converter](svg-to-png/README.md) | Renders any MDI icon as a PNG with the size, colors and background shape you ask for — for the `image` field of notifications. |
 
 ## Installation
 
-Follow these steps to add this repository to your Home Assistant instance:
-
-1. Navigate in your Home Assistant frontend to **Settings** -> **Add-ons** -> **Add-on Store**.
-2. Click the 3-dots menu at top right -> **Repositories**
-3. Add the URL `https://github.com/Netesfiu/hass-addons`
-4. Click **Add**
-5. Find the "SVG to PNG Converter" add-on and click it.
-6. Click on the "INSTALL" button.
+1. **Settings** > **Apps** > **Install app**.
+2. Menu in the top right > **Repositories**.
+3. Add `https://github.com/Netesfiu/hass-addons`.
+4. Install **SVG to PNG Converter** and start it.
 
 ## Documentation
 
-For detailed documentation, please see the [SVG to PNG Converter add-on documentation](./svg-to-png/README.md).
+- [SVG to PNG Converter — endpoints, styling, troubleshooting](svg-to-png/DOCS.md)
+- [Changelog](svg-to-png/CHANGELOG.md)
+- [Manual installation](svg-to-png/INSTALL.md)
+
+## Support
+
+Issues and feature requests: <https://github.com/Netesfiu/hass-addons/issues>
 
 ## License
 
-MIT License
-
-[aarch64-shield]: https://img.shields.io/badge/aarch64-yes-green.svg
-[amd64-shield]: https://img.shields.io/badge/amd64-yes-green.svg
-[armhf-shield]: https://img.shields.io/badge/armhf-yes-green.svg
-[armv7-shield]: https://img.shields.io/badge/armv7-yes-green.svg
-[i386-shield]: https://img.shields.io/badge/i386-yes-green.svg
-[license-shield]: https://img.shields.io/github/license/Netesfiu/hass-addons.svg
-[project-stage-shield]: https://img.shields.io/badge/project%20stage-production%20ready-brightgreen.svg
-[releases-shield]: https://img.shields.io/github/release/Netesfiu/hass-addons.svg
-[releases]: https://github.com/Netesfiu/hass-addons/releases
+MIT

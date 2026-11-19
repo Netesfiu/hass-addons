@@ -1,5 +1,16 @@
 # Changelog
 
+## 1.1.9
+
+- Repository restructured for the current app store: `config.yaml` and `build.yaml`
+  replace the JSON files, and the repository is described by `repository.yaml`
+- Added `icon.png` and `logo.png`
+- Added `DOCS.md` for the Documentation tab, and `translations/en.yaml` for the port
+- Added a `watchdog` on `/health`
+- `arch` reduced to `aarch64` and `amd64`; `armhf`, `armv7` and `i386` are deprecated
+  by the Supervisor
+- README rewritten as a short introduction, the reference moved to `DOCS.md`
+
 ## 1.1.8
 
 - Re-added `apparmor.txt` (allow-then-deny: the app runs, but `/config`,

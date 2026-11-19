@@ -1,0 +1,2 @@
+network:
+  3000/tcp: "Web interface — the port the notification image URLs point at"
